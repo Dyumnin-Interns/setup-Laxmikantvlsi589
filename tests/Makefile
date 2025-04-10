@@ -1,11 +1,14 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
-VERILOG_SOURCES += $(PWD)/../hdl/dut.v
-TOPLEVEL = dut
-MODULE = dut_test
 
-WAVES ?= 1
-export VCD_NAME ?= xor_waveform
+VERILOG_SOURCES += $(PWD)/../hdl/dut.v
+VERILOG_SOURCES += $(PWD)/wrappers/dut_test.v
+
+all: xor
+
+xor:
+	rm -rf sim_build
+	$(MAKE) sim MODULE=dut_test TOPLEVEL=dut_test
 
 include $(shell cocotb-config --makefiles)/Makefile.sim
 
